@@ -28,17 +28,17 @@ public class EntryPoint
     public void FromVegas(Vegas vegas)
     {
         List<TrackEvent> events = GetAppropriateTrackEvents(vegas.Project);
-        int seconds = int.Parse(GetUserInput("Length?", "10"));
+        int milliDelay = int.Parse(GetUserInput("Milliseconds Delay?", "10000"));
         int milliCross = int.Parse(GetUserInput("Milliseconds transition?", "2000"));
 
         //set first length event
-        events[0].Length = Timecode.FromSeconds(seconds);
+        events[0].Length = Timecode.FromMilliseconds(milliDelay);
 
         //set remaining events
         for (int i = 1; i < events.Count; i++)
         {
             events[i].Start = events[i - 1].End - Timecode.FromMilliseconds(milliCross);
-            events[i].Length = Timecode.FromSeconds(seconds);
+            events[i].Length = Timecode.FromMilliseconds(milliDelay);
         }
      }
 
